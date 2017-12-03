@@ -2,6 +2,20 @@ FROM php:5.6-apache
 
 RUN a2enmod env rewrite
 
+# System Dependencies.
+RUN apt-get update && apt-get install -y \
+			libicu-dev \
+		--no-install-recommends && rm -r /var/lib/apt/lists/*
+
+# PHP Extensions
+RUN set -ex \
+	&& buildDeps=' \
+			libsqlite3-dev \
+		' \
+	&& apt-get update && apt-get install -y --no-install-recommends $buildDeps && rm -rf /var/lib/apt/lists/* \
+	&& docker-php-ext-install intl opcache pdo_mysql pdo_sqlite \
+	&& apt-get purge -y --auto-remove $buildDeps
+
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
 RUN { \
