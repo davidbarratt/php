@@ -33,6 +33,11 @@ RUN { \
 		echo 'post_max_size = 32M'; \
 } > /usr/local/etc/php/conf.d/upload-filesize.ini
 
+# Set the timezone.
+RUN { \
+		echo 'date.timezone =  UTC'; \
+} > /usr/local/etc/php/conf.d/timezone.ini
+
 # Optomize container for a low-memory VPS.
 RUN { \
     echo 'StartServers 1'; \
