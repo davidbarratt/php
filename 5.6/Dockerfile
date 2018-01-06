@@ -13,7 +13,7 @@ RUN set -ex \
 			libsqlite3-dev \
 		' \
 	&& apt-get update && apt-get install -y --no-install-recommends $buildDeps && rm -rf /var/lib/apt/lists/* \
-	&& docker-php-ext-install intl opcache pdo_mysql pdo_sqlite \
+	&& docker-php-ext-install intl opcache pdo_mysql pdo_sqlite mysqli \
 	&& apt-get purge -y --auto-remove $buildDeps
 
 # set recommended PHP.ini settings
